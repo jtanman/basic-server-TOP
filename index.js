@@ -7,19 +7,14 @@ const PORT = 8080;
 // Middleware to serve static files
 app.use(express.static(path.join(__dirname)));
 
-// Route for the home page
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
-
-// Route for the About page
-app.get('/about', (req, res) => {
-    res.sendFile(path.join(__dirname, 'about.html'));
-});
-
-// Route for the Contact Me page
-app.get('/contact-me', (req, res) => {
-    res.sendFile(path.join(__dirname, 'contact-me.html'));
+// Fallback for routes like /about or /contact-me
+app.use((req, res, next) => {
+    const filePath = path.join(__dirname, `${req.path}.html`);
+    res.sendFile(filePath, (err) => {
+        if (err) {
+            next(); // Pass to the 404 handler if the file doesn't exist
+        }
+    });
 });
 
 // Catch-all route for 404 errors
