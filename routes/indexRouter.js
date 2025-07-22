@@ -5,6 +5,18 @@ const fs = require("fs");
 
 const indexRouter = Router();
 
+const links = [
+  { href: "/", text: "Home" },
+  { href: "about", text: "About" },
+];
+
+const users = ["Rose", "Cake", "Biff"];
+
+// GET / - log usernames (placeholder)
+indexRouter.get("/", (req, res) => {
+  res.render("index", { links: links, users: users });
+});
+
 // Middleware to serve EJS templates dynamically
 indexRouter.use((req, res, next) => {
     const viewName = req.path === "/" ? "index" : req.path.substring(1); // Remove leading slash
