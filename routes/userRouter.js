@@ -12,4 +12,6 @@ userRouter.get("/new", userController.createUsernameGet);
 // POST /users/new - handle form submission
 userRouter.post("/new", userController.createUsernamePost);
 
+userRouter.get("/delete", userController.deleteUsernames);
+
 module.exports = userRouter;
